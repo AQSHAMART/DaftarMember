@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Akun AQSHAMART</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a4a2e 0%, #0d2818 50%, #1a4a2e 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #1a4a2e, #f57c00, #1a4a2e);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .logo h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a4a2e;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #f57c00;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    label .required {
+      color: #e53935;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s;
+      outline: none;
+      background: #fafafa;
+    }
+
+    input:focus {
+      border-color: #f57c00;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.1);
+    }
+
+    input.error {
+      border-color: #e53935;
+      background: #fff5f5;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper .prefix {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .input-wrapper input[type="tel"] {
+      padding-left: 52px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f57c00, #e65100);
+      color: white;
+      box-shadow: 0 4px 15px rgba(245, 124, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      background: #1a4a2e;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #0d2818;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+      color: #999;
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    .alert {
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .alert-success {
+      background: #e8f5e9;
+      color: #1b5e20;
+      border: 1px solid #a5d6a7;
+      display: block;
+    }
+
+    .alert-error {
+      background: #ffebee;
+      color: #b71c1c;
+      border: 1px solid #ef9a9a;
+      display: block;
+    }
+
+    .alert-info {
+      background: #e3f2fd;
+      color: #0d47a1;
+      border: 1px solid #90caf9;
+      display: block;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, #fff8e1, #fff3e0);
+      border: 1px solid #ffcc80;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #e65100;
+      line-height: 1.6;
+    }
+
+    .info-box strong {
+      color: #bf360c;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: #f57c00;
+      text-decoration: none;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      padding-right: 44px;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #999;
+      padding: 4px;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .requirements {
+      font-size: 12px;
+      color: #999;
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 28px 20px;
+      }
+
+      body {
+        padding: 12px;
+      }
+
+      .logo h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>AQSHA<span>MART</span></h1>
+    </div>
+    <p class="subtitle">Daftar akun untuk belanja di website AQSHAMART</p>
+
+    <div id="alertMessage" class="alert"></div>
+
+    <div id="formContent">
+      <div class="info-box">
+        <strong>Informasi:</strong> Data pendaftaran akan tersimpan otomatis.
+        Jika sudah pernah daftar, hubungi Aisyah lewat WhatsApp untuk mendapatkan password.
+      </div>
+
+      <form id="registerForm" autocomplete="off" onsubmit="return false;">
+        <div class="form-group">
+          <label>Nama Lengkap <span class="required">*</span></label>
+          <input type="text" id="fullName" placeholder="Contoh: Budi Santoso" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label>Nomor Telepon <span class="required">*</span></label>
+          <div class="input-wrapper">
+            <span class="prefix">+62</span>
+            <input type="tel" id="phoneNumber" placeholder="81234567890" required maxlength="15" inputmode="numeric">
+          </div>
+          <div style="font-size:12px;color:#999;margin-top:4px;">Nomor HP yang aktif untuk login dan diterima di
+            WhatsApp</div>
+        </div>
+
+        <div class="form-group">
+          <label>Password <span class="required">*</span></label>
+          <div class="password-wrapper">
+            <input type="text" id="password" placeholder="Buat password (min 4 karakter)" required minlength="4"
+              maxlength="50">
+          </div>
+          <div class="requirements">Password akan digunakan untuk login ke <strong>www.aqshamart.com</strong></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          Daftar Sekarang
+        </button>
+      </form>
+    </div>
+
+    <div id="successContent" class="hidden" style="text-align:center;padding:20px 0;">
+      <div class="success-icon">✅</div>
+      <h2 style="color:#1a4a2e;margin-bottom:8px;">Berhasil Terdaftar!</h2>
+      <p style="color:#666;margin-bottom:20px;line-height:1.6;">
+        Data kamu sudah tersimpan. Silakan langsung masuk ke 
+        <strong><a href="https://www.aqshamart.com" target="_blank" style="color:#f57c00;">www.aqshamart.com</a></strong>
+        menggunakan nomor HP dan password yang sudah didaftarkan.
+      </p>
+      <p style="color:#999;font-size:14px;margin-bottom:20px;">
+        Hubungi Aisyah jika lupa password 🙏
+      </p>
+      <div style="background:#f5f5f5;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e0e0e0;">
+          <span style="color:#666;">Nama</span>
+          <span style="font-weight:600;color:#1a4a2e;" id="resultName">-</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e0e0e0;">
+          <span style="color:#666;">Nomor HP</span>
+          <span style="font-weight:600;color:#1a4a2e;" id="resultPhone">-</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;">
+          <span style="color:#666;">Password</span>
+          <span style="font-weight:600;color:#f57c00;" id="resultPass">-</span>
+        </div>
+      </div>
+      <a href="https://www.aqshamart.com" target="_blank" class="btn btn-primary" style="display:block;text-decoration:none;margin-bottom:10px;">Masuk ke AQSHAMART</a>
+      <a href="https://wa.me/6285607327816" target="_blank" style="color:#666;font-size:13px;text-decoration:none;">Hubungi Aisyah lewat WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2026 AQSHAMART
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://ntprcxobprjputcrqevi.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50cHJjeG9icHJqcHV0Y3JxZXZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MjI0NjQsImV4cCI6MjA5NTE5ODQ2NH0.vURhMiUiEWv1UG7otvk6qjhmhtkVyAVzfFTDlHBo3C4';
+
+    let submitted = false;
+
+    const form = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const alertEl = document.getElementById('alertMessage');
+    const formContent = document.getElementById('formContent');
+    const successContent = document.getElementById('successContent');
+
+    function showAlert(type, msg) {
+      alertEl.className = 'alert alert-' + type;
+      alertEl.textContent = msg;
+      alertEl.style.display = 'block';
+    }
+
+    function hideAlert() {
+      alertEl.style.display = 'none';
+    }
+
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        const r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+    }
+
+    function cleanPhone(phone) {
+      let p = phone.replace(/[^0-9]/g, '');
+      if (p.startsWith('0')) p = '62' + p.slice(1);
+      if (p.startsWith('+')) p = p.slice(1);
+      if (!p.startsWith('62')) p = '62' + p;
+      return p;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (submitted) return false;
+      hideAlert();
+
+      const name = document.getElementById('fullName').value.trim();
+      const phoneRaw = document.getElementById('phoneNumber').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!name) { showAlert('error', 'Nama lengkap harus diisi.'); return; }
+      if (!phoneRaw) { showAlert('error', 'Nomor telepon harus diisi.'); return; }
+      if (phoneRaw.length < 8) { showAlert('error', 'Nomor telepon tidak valid.'); return; }
+      if (!password || password.length < 4) { showAlert('error', 'Password minimal 4 karakter.'); return; }
+
+      const phone = cleanPhone(phoneRaw);
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span> Mendaftarkan...';
+
+      const now = new Date().toISOString();
+      const newId = generateUUID();
+
+      const profileData = {
+        id: newId,
+        phone_number: phone,
+        full_name: name,
+        password_plain: password,
+        role: 'customer',
+        created_at: now
+      };
+
+      try {
+        // Use fetch() directly to Supabase REST API — more reliable than JS client
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+        const response = await fetch(SUPABASE_URL + '/rest/v1/profiles', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Prefer': 'return=representation'
+          },
+          body: JSON.stringify(profileData),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+          const body = await response.json().catch(() => ({}));
+          const msg = body.message || body.error || response.statusText;
+          const code = body.code || '';
+
+          console.error('Insert failed:', response.status, body);
+
+          if (code === '23505' || msg?.includes('duplicate') || msg?.includes('already exists')) {
+            showAlert('error', 'Nomor HP ' + phone + ' sudah terdaftar. Gunakan nomor lain atau hubungi Aisyah lewat WhatsApp.');
+          } else if (code === '23503' || msg?.includes('foreign key') || response.status === 400 && msg?.includes('violates')) {
+            showAlert('info', 'Registrasi terkendala foreign key constraint. Jalankan SQL ini di Supabase SQL Editor (https://supabase.com/dashboard/project/ntprcxobprjputcrqevi/sql/new):\n\nALTER TABLE profiles DROP CONSTRAINT IF EXISTS profiles_id_fkey;\nALTER TABLE profiles ALTER COLUMN id DROP DEFAULT;');
+          } else if (response.status === 401 || response.status === 403 || msg?.includes('policy') || msg?.includes('permission') || msg?.includes('row-level security')) {
+            showAlert('info', 'Registrasi terkendala izin database (RLS). Jalankan SQL ini di Supabase SQL Editor:\n\nDROP POLICY IF EXISTS anon_insert ON profiles;\nCREATE POLICY anon_insert ON profiles FOR INSERT TO anon WITH CHECK (true);');
+          } else {
+            showAlert('error', 'Error (' + response.status + '): ' + (typeof msg === 'string' ? msg : JSON.stringify(body)));
+          }
+
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Daftar Sekarang';
+          return;
+        }
+
+        showSuccess(name, phoneRaw, password);
+
+      } catch (err) {
+        console.error('Error:', err);
+
+        if (err.name === 'AbortError') {
+          showAlert('error', 'Koneksi timeout (15 detik). Supabase REST API tidak bisa dijangkau — mungkin firewall/ISP memblokir. Coba pakai WiFi lain atau VPN.\n\nAtau hubungi Aisyah lewat WhatsApp untuk daftar manual.');
+        } else {
+          showAlert('error', 'Terjadi kesalahan: ' + err.message);
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Daftar Sekarang';
+      }
+    });
+
+    function showSuccess(name, phoneRaw, password) {
+      submitted = true;
+      document.getElementById('resultName').textContent = name;
+      document.getElementById('resultPhone').textContent = '+62 ' + phoneRaw;
+      document.getElementById('resultPass').textContent = password;
+      formContent.classList.add('hidden');
+      successContent.classList.remove('hidden');
+    }
+
+    document.getElementById('phoneNumber').addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  </script>
+</body>
+
+</html>
