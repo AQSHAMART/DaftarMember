@@ -352,7 +352,7 @@
         <div class="form-group">
           <label>Nomor Telepon <span class="required">*</span></label>
           <div class="input-wrapper">
-            <span class="prefix">+62</span>
+            <span class="prefix">62/0</span>
             <input type="tel" id="phoneNumber" placeholder="81234567890" required maxlength="15" inputmode="numeric">
           </div>
           <div style="font-size:12px;color:#999;margin-top:4px;">Nomor HP yang aktif untuk login dan diterima di
@@ -535,7 +535,7 @@
     function showSuccess(name, phoneRaw, password) {
       submitted = true;
       document.getElementById('resultName').textContent = name;
-      document.getElementById('resultPhone').textContent = '+62 ' + phoneRaw;
+      document.getElementById('resultPhone').textContent = '62/0 ' + phoneRaw;
       document.getElementById('resultPass').textContent = password;
       formContent.classList.add('hidden');
       successContent.classList.remove('hidden');
