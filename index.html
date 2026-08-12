@@ -1,550 +1,854 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Member AQSHAMART Member</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daftar Akun AQSHAMART</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1a4a2e 0%, #0d2818 50%, #1a4a2e 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .container {
-      background: white;
-      border-radius: 24px;
-      padding: 40px;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #1a4a2e, #f57c00, #1a4a2e);
-    }
-
-    .logo {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .logo h1 {
-      font-size: 28px;
-      font-weight: 800;
-      color: #1a4a2e;
-      letter-spacing: 1px;
-    }
-
-    .logo span {
-      color: #f57c00;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 6px;
-    }
-
-    label .required {
-      color: #e53935;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.3s;
-      outline: none;
-      background: #fafafa;
-    }
-
-    input:focus {
-      border-color: #f57c00;
-      background: white;
-      box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.1);
-    }
-
-    input.error {
-      border-color: #e53935;
-      background: #fff5f5;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .input-wrapper .prefix {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #666;
-      font-weight: 500;
-      font-size: 15px;
-    }
-
-    .input-wrapper input[type="tel"] {
-      padding-left: 52px;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #f57c00, #e65100);
-      color: white;
-      box-shadow: 0 4px 15px rgba(245, 124, 0, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
-    }
-
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-secondary {
-      background: #1a4a2e;
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background: #0d2818;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 24px 0;
-      color: #999;
-      font-size: 13px;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #e0e0e0;
-    }
-
-    .alert {
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      margin-bottom: 20px;
-      display: none;
-      line-height: 1.5;
-    }
-
-    .alert-success {
-      background: #e8f5e9;
-      color: #1b5e20;
-      border: 1px solid #a5d6a7;
-      display: block;
-    }
-
-    .alert-error {
-      background: #ffebee;
-      color: #b71c1c;
-      border: 1px solid #ef9a9a;
-      display: block;
-    }
-
-    .alert-info {
-      background: #e3f2fd;
-      color: #0d47a1;
-      border: 1px solid #90caf9;
-      display: block;
-    }
-
-    .info-box {
-      background: linear-gradient(135deg, #fff8e1, #fff3e0);
-      border: 1px solid #ffcc80;
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: #e65100;
-      line-height: 1.6;
-    }
-
-    .info-box strong {
-      color: #bf360c;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
+    <style>
+      :root {
+        --primary: #f57c00; /* Orange Accent */
+        --primary-hover: #e65100;
+        --secondary: #1a4a2e; /* AQSHAMART Green */
+        --secondary-hover: #0d2818;
+        --background: #f7f9f6;
+        --white: #ffffff;
+        --text: #333333;
+        --text-muted: #666666;
+        --outline: #e0e0e0;
+        --error: #e53935;
+        --success: #2e7d32;
       }
-    }
 
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 13px;
-    }
-
-    .footer a {
-      color: #f57c00;
-      text-decoration: none;
-    }
-
-    .success-icon {
-      width: 64px;
-      height: 64px;
-      background: #e8f5e9;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      font-size: 32px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .password-wrapper {
-      position: relative;
-    }
-
-    .password-wrapper input {
-      padding-right: 44px;
-    }
-
-    .toggle-pass {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #999;
-      padding: 4px;
-    }
-
-    .char-count {
-      text-align: right;
-      font-size: 12px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    .requirements {
-      font-size: 12px;
-      color: #999;
-      margin-top: 6px;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 28px 20px;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
       body {
-        padding: 12px;
+        font-family: "Outfit", sans-serif;
+        background: linear-gradient(
+          135deg,
+          var(--secondary) 0%,
+          #11331e 50%,
+          var(--secondary) 100%
+        );
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
       }
 
-      .logo h1 {
+      .container {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 35px;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--secondary),
+          var(--primary),
+          var(--secondary)
+        );
+      }
+
+      .brand-logo-container {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .brand-logo {
+        height: 70px;
+        object-fit: contain;
+      }
+
+      .header-title {
         font-size: 24px;
+        font-weight: 800;
+        color: var(--secondary);
+        text-align: center;
+        margin-bottom: 6px;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div class="container">
-    <div class="logo">
-      <h1>AQSHA<span>MART</span></h1>
-    </div>
-    <p class="subtitle">Daftar akun untuk belanja di website AQSHAMART</p>
+      .header-subtitle {
+        font-size: 14px;
+        color: var(--text-muted);
+        text-align: center;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
 
-    <div id="alertMessage" class="alert"></div>
+      /* Benefits Grid Section */
+      .benefits-section {
+        background: #f1f6f2;
+        border: 1px solid rgba(26, 74, 46, 0.15);
+        border-radius: 16px;
+        padding: 18px;
+        margin-bottom: 25px;
+      }
 
-    <div id="formContent">
-      <div class="info-box">
-        <strong>Informasi:</strong> Data pendaftaran akan tersimpan otomatis.
-        Jika sudah pernah daftar, hubungi Aisyah lewat WhatsApp untuk mendapatkan password.
+      .benefits-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        text-align: center;
+      }
+
+      .benefits-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .benefit-icon {
+        width: 28px;
+        height: 28px;
+        background: var(--secondary);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .benefit-text {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--secondary);
+      }
+
+      /* Form Fields Styling */
+      .form-group {
+        margin-bottom: 18px;
+        position: relative;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--secondary);
+        margin-bottom: 6px;
+      }
+
+      .form-label span {
+        color: var(--error);
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--outline);
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: "Outfit", sans-serif;
+        transition: all 0.3s ease;
+        outline: none;
+        background: #fafafa;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        border-color: var(--primary);
+        background: var(--white);
+        box-shadow: 0 0 0 4px rgba(245, 124, 0, 0.1);
+      }
+
+      .form-textarea {
+        height: 80px;
+        resize: none;
+      }
+
+      /* Custom Phone Input with Prefix layout */
+      .phone-input-wrapper {
+        position: relative;
+      }
+
+      .phone-prefix {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .phone-input-wrapper input {
+        padding-left: 55px;
+      }
+
+      .field-hint {
+        font-size: 11px;
+        color: var(--text-muted);
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+
+      /* Date Selector Dropdown Layout */
+      .date-row {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr 1.2fr;
+        gap: 8px;
+      }
+
+      /* Submit Button styling */
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Outfit", sans-serif;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--primary), #e65100);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 15px;
+        box-shadow: 0 5px 15px rgba(245, 124, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(245, 124, 0, 0.4);
+      }
+
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* Loading Overlay Styling */
+      .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .loading-overlay.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(26, 74, 46, 0.1);
+        border-top: 5px solid var(--secondary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+
+      .loading-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--secondary);
+        text-align: center;
+      }
+
+      /* Popups and Success layout */
+      .success-popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--white);
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        text-align: center;
+      }
+
+      .success-popup.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .success-icon {
+        width: 70px;
+        height: 70px;
+        background: #e8f5e9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: var(--success);
+        font-size: 32px;
+        box-shadow: 0 5px 15px rgba(46, 125, 50, 0.15);
+      }
+
+      .success-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--secondary);
+        margin-bottom: 10px;
+      }
+
+      .success-message {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+
+      .success-instruction {
+        font-size: 13px;
+        background: #f1f6f2;
+        border: 1px solid rgba(26, 74, 46, 0.1);
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        color: var(--secondary);
+        line-height: 1.5;
+      }
+
+      .close-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        background: var(--secondary);
+        color: var(--white);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .close-btn:hover {
+        background: var(--secondary-hover);
+      }
+
+      .error-alert {
+        padding: 12px 15px;
+        background: #ffebee;
+        color: #b71c1c;
+        border: 1px solid #ef9a9a;
+        border-radius: 12px;
+        font-size: 13px;
+        margin-bottom: 15px;
+        display: none;
+        line-height: 1.5;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 25px 20px;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Brand Logo -->
+      <div class="brand-logo-container">
+        <img
+          src="/LOGO AQMA POLOS.png"
+          alt="AQSHAMART Logo"
+          class="brand-logo"
+        />
       </div>
 
-      <form id="registerForm" autocomplete="off" onsubmit="return false;">
-        <div class="form-group">
-          <label>Nama Lengkap <span class="required">*</span></label>
-          <input type="text" id="fullName" placeholder="Contoh: Budi Santoso" required autofocus>
-        </div>
-
-        <div class="form-group">
-          <label>Nomor Telepon <span class="required">*</span></label>
-          <div class="input-wrapper">
-            <span class="prefix">62/0</span>
-            <input type="tel" id="phoneNumber" placeholder="81234567890" required maxlength="15" inputmode="numeric">
-          </div>
-          <div style="font-size:12px;color:#999;margin-top:4px;">Nomor HP yang aktif untuk login dan diterima di
-            WhatsApp</div>
-        </div>
-
-        <div class="form-group">
-          <label>Password <span class="required">*</span></label>
-          <div class="password-wrapper">
-            <input type="text" id="password" placeholder="Buat password (min 4 karakter)" required minlength="4"
-              maxlength="50">
-          </div>
-          <div class="requirements">Password akan digunakan untuk login ke <strong>www.aqshamart.com</strong></div>
-        </div>
-
-        <button type="submit" class="btn btn-primary" id="submitBtn">
-          Daftar Sekarang
-        </button>
-      </form>
-    </div>
-
-    <div id="successContent" class="hidden" style="text-align:center;padding:20px 0;">
-      <div class="success-icon">✅</div>
-      <h2 style="color:#1a4a2e;margin-bottom:8px;">Berhasil Terdaftar!</h2>
-      <p style="color:#666;margin-bottom:20px;line-height:1.6;">
-        Data kamu sudah tersimpan. Silakan langsung masuk ke 
-        <strong><a href="https://www.aqshamart.com" target="_blank" style="color:#f57c00;">www.aqshamart.com</a></strong>
-        menggunakan nomor HP dan password yang sudah didaftarkan.
+      <h1 class="header-title">AQSHAMART Member</h1>
+      <p class="header-subtitle">
+        Daftarkan diri Anda untuk menjadi member AQSHAMART dan nikmati harga
+        spesial eceran & grosir.
       </p>
-      <p style="color:#999;font-size:14px;margin-bottom:20px;">
-        Hubungi Aisyah jika lupa password 🙏
-      </p>
-      <div style="background:#f5f5f5;border-radius:12px;padding:16px;margin-bottom:20px;text-align:left;">
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e0e0e0;">
-          <span style="color:#666;">Nama</span>
-          <span style="font-weight:600;color:#1a4a2e;" id="resultName">-</span>
+
+      <!-- Error Alert placeholder -->
+      <div id="errorAlert" class="error-alert"></div>
+
+      <div id="formContainer">
+        <!-- Benefit Grid Cards -->
+        <div class="benefits-section">
+          <h2 class="benefits-title">Keuntungan Menjadi Member</h2>
+          <div class="benefits-grid">
+            <div class="benefit-item">
+              <div class="benefit-icon"><i class="fas fa-bell"></i></div>
+              <div class="benefit-text">
+                Prioritas mendapat info promo terbaru
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon"><i class="fas fa-tags"></i></div>
+              <div class="benefit-text">
+                Penawaran spesial dengan harga khusus (Retail & Grosir)
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <div class="benefit-text">
+                Layanan pesan antar cepat & FREE ongkir
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e0e0e0;">
-          <span style="color:#666;">Nomor HP</span>
-          <span style="font-weight:600;color:#1a4a2e;" id="resultPhone">-</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;">
-          <span style="color:#666;">Password</span>
-          <span style="font-weight:600;color:#f57c00;" id="resultPass">-</span>
+
+        <!-- Registration Form -->
+        <form id="registerForm" autocomplete="off" onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label">Nama Lengkap <span>*</span></label>
+            <input
+              type="text"
+              class="form-input"
+              id="fullName"
+              placeholder="Contoh: Budi Santoso"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Sapaan <span>*</span></label>
+              <select class="form-select" id="sapaan" required>
+                <option value="">Pilih Sapaan</option>
+                <option value="Pak">Pak</option>
+                <option value="Bu">Bu</option>
+                <option value="Mas">Mas</option>
+                <option value="Mbak">Mbak</option>
+                <option value="Kak">Kak</option>
+                <option value="Om">Om</option>
+                <option value="Koh">Koh</option>
+                <option value="Ci">Ci</option>
+                <option value="Kang">Kang</option>
+                <option value="Teh">Teh</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nama Panggilan <span>*</span></label>
+              <input
+                type="text"
+                class="form-input"
+                id="panggilan"
+                placeholder="Contoh: Budi"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Nomor HP (WhatsApp) <span>*</span></label>
+            <div class="phone-input-wrapper">
+              <span class="phone-prefix">62/0</span>
+              <input
+                type="tel"
+                class="form-input"
+                id="nomorHP"
+                placeholder="81234567890"
+                required
+              />
+            </div>
+            <div class="field-hint">
+              Format nomor yang terhubung aktif di aplikasi WhatsApp
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tanggal Lahir <span>*</span></label>
+            <div class="date-row">
+              <select class="form-select" id="dobDay" required>
+                <option value="">Tgl</option>
+              </select>
+              <select class="form-select" id="dobMonth" required>
+                <option value="">Bulan</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+              </select>
+              <select class="form-select" id="dobYear" required>
+                <option value="">Tahun</option>
+              </select>
+            </div>
+            <div class="field-hint">Pilih tanggal, bulan, dan tahun lahir</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin <span>*</span></label>
+            <select class="form-select" id="jenisKelamin" required>
+              <option value="">Pilih Jenis Kelamin</option>
+              <option value="laki-laki">Laki-laki</option>
+              <option value="perempuan">Perempuan</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Alamat Lengkap <span>*</span></label>
+            <textarea
+              class="form-textarea"
+              id="alamat"
+              placeholder="Contoh: Perumahan Bunga Blok B/12, Tangerang Selatan"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fas fa-user-plus"></i> DAFTAR MEMBER SEKARANG
+          </button>
+        </form>
+      </div>
+
+      <!-- Spin Loading Overlay -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text" id="loadingText">
+          Mendaftarkan member baru...
         </div>
       </div>
-      <a href="https://www.aqshamart.com" target="_blank" class="btn btn-primary" style="display:block;text-decoration:none;margin-bottom:10px;">Masuk ke AQSHAMART</a>
-      <a href="https://wa.me/6285607327816" target="_blank" style="color:#666;font-size:13px;text-decoration:none;">Hubungi Aisyah lewat WhatsApp</a>
+
+      <!-- Success Modal Popup -->
+      <div class="success-popup" id="successPopup">
+        <div class="success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h3 class="success-title">Selamat!</h3>
+        <p class="success-message">
+          Anda sudah berhasil mendaftar sebagai member AQSHAMART Member.
+        </p>
+        <div class="success-instruction">
+          <strong
+            >Silakan gunakan nomor HP Anda untuk login belanja di
+            AQSHAMART.COM</strong
+          >
+        </div>
+        <button class="close-btn" id="closeSuccessBtn">Tutup</button>
+      </div>
     </div>
-  </div>
 
-  <div class="footer">
-    &copy; 2026 AQSHAMART
-  </div>
+    <div class="footer">
+      &copy; 2026
+      <a href="https://www.AQSHAMART.com" target="_blank">AQSHAMART</a>. All
+      rights reserved.
+    </div>
 
-  <script>
-    const SUPABASE_URL = 'https://ntprcxobprjputcrqevi.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50cHJjeG9icHJqcHV0Y3JxZXZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MjI0NjQsImV4cCI6MjA5NTE5ODQ2NH0.vURhMiUiEWv1UG7otvk6qjhmhtkVyAVzfFTDlHBo3C4';
+    <!-- Main Controller Logic JS -->
+    <script>
+      // === CONFIGURATION ===
+      const SUPABASE_URL = "https://ntprcxobprjputcrqevi.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50cHJjeG9icHJqcHV0Y3JxZXZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MjI0NjQsImV4cCI6MjA5NTE5ODQ2NH0.vURhMiUiEWv1UG7otvk6qjhmhtkVyAVzfFTDlHBo3C4";
+      const WA_GATEWAY_URL =
+        "https://nonleaking-cameron-eagerly.ngrok-free.dev/api/send";
+      const WA_API_KEY = "AQSHAMART2025";
+      const WA_SESSION_ID = "HRIS02";
 
-    let submitted = false;
+      // Ganti URL Google Apps Script ini setelah Anda men-deploy Apps Script ke Spreadsheet Anda
+      const GOOGLE_SCRIPT_WEB_APP_URL =
+        "https://script.google.com/macros/s/AKfycbzHFkvsf6FSj1n6Y3xZ2KW5lTmJJsfqa4i0pdcuvFA2ztjSLP6rMn7rrV1RXhf7A56p2g/exec";
 
-    const form = document.getElementById('registerForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const alertEl = document.getElementById('alertMessage');
-    const formContent = document.getElementById('formContent');
-    const successContent = document.getElementById('successContent');
+      // === POPULATE DATE DROPDOWNS ===
+      const daySelect = document.getElementById("dobDay");
+      for (let d = 1; d <= 31; d++) {
+        const opt = document.createElement("option");
+        opt.value = d.toString().padStart(2, "0");
+        opt.textContent = d;
+        daySelect.appendChild(opt);
+      }
 
-    function showAlert(type, msg) {
-      alertEl.className = 'alert alert-' + type;
-      alertEl.textContent = msg;
-      alertEl.style.display = 'block';
-    }
+      const yearSelect = document.getElementById("dobYear");
+      const currentYear = new Date().getFullYear();
+      for (let y = currentYear; y >= currentYear - 90; y--) {
+        const opt = document.createElement("option");
+        opt.value = y.toString();
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
 
-    function hideAlert() {
-      alertEl.style.display = 'none';
-    }
+      // === UTILITY FUNCTIONS ===
+      function cleanPhoneNumber(phone) {
+        let cleaned = phone.replace(/\D/g, "");
+        if (cleaned.startsWith("0")) {
+          cleaned = "62" + cleaned.substring(1);
+        } else if (cleaned.startsWith("8")) {
+          cleaned = "62" + cleaned;
+        } else if (!cleaned.startsWith("62")) {
+          cleaned = "62" + cleaned;
+        }
+        return cleaned;
+      }
 
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        const r = Math.random() * 16 | 0;
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-      });
-    }
-
-    function cleanPhone(phone) {
-      let p = phone.replace(/[^0-9]/g, '');
-      if (p.startsWith('0')) p = '62' + p.slice(1);
-      if (p.startsWith('+')) p = p.slice(1);
-      if (!p.startsWith('62')) p = '62' + p;
-      return p;
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (submitted) return false;
-      hideAlert();
-
-      const name = document.getElementById('fullName').value.trim();
-      const phoneRaw = document.getElementById('phoneNumber').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (!name) { showAlert('error', 'Nama lengkap harus diisi.'); return; }
-      if (!phoneRaw) { showAlert('error', 'Nomor telepon harus diisi.'); return; }
-      if (phoneRaw.length < 8) { showAlert('error', 'Nomor telepon tidak valid.'); return; }
-      if (!password || password.length < 4) { showAlert('error', 'Password minimal 4 karakter.'); return; }
-
-      const phone = cleanPhone(phoneRaw);
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span> Mendaftarkan...';
-
-      const now = new Date().toISOString();
-      const newId = generateUUID();
-
-      const profileData = {
-        id: newId,
-        phone_number: phone,
-        full_name: name,
-        password_plain: password,
-        role: 'customer',
-        created_at: now
-      };
-
-      try {
-        // Use fetch() directly to Supabase REST API — more reliable than JS client
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000);
-
-        const response = await fetch(SUPABASE_URL + '/rest/v1/profiles', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
-            'Prefer': 'return=representation'
+      function generateUUID() {
+        return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+          /[xy]/g,
+          function (c) {
+            var r = (Math.random() * 16) | 0,
+              v = c == "x" ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
           },
-          body: JSON.stringify(profileData),
-          signal: controller.signal
-        });
+        );
+      }
 
-        clearTimeout(timeoutId);
+      function showErrorMessage(msg) {
+        const alertBox = document.getElementById("errorAlert");
+        alertBox.textContent = msg;
+        alertBox.style.display = "block";
+        alertBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
 
-        if (!response.ok) {
-          const body = await response.json().catch(() => ({}));
-          const msg = body.message || body.error || response.statusText;
-          const code = body.code || '';
+      function hideErrorMessage() {
+        document.getElementById("errorAlert").style.display = "none";
+      }
 
-          console.error('Insert failed:', response.status, body);
+      // === FORM SUBMIT HANDLER ===
+      const form = document.getElementById("registerForm");
+      const loadingOverlay = document.getElementById("loadingOverlay");
+      const loadingText = document.getElementById("loadingText");
+      const successPopup = document.getElementById("successPopup");
 
-          if (code === '23505' || msg?.includes('duplicate') || msg?.includes('already exists')) {
-            showAlert('error', 'Nomor HP ' + phone + ' sudah terdaftar. Gunakan nomor lain atau hubungi Aisyah lewat WhatsApp.');
-          } else if (code === '23503' || msg?.includes('foreign key') || response.status === 400 && msg?.includes('violates')) {
-            showAlert('info', 'Registrasi terkendala foreign key constraint. Jalankan SQL ini di Supabase SQL Editor (https://supabase.com/dashboard/project/ntprcxobprjputcrqevi/sql/new):\n\nALTER TABLE profiles DROP CONSTRAINT IF EXISTS profiles_id_fkey;\nALTER TABLE profiles ALTER COLUMN id DROP DEFAULT;');
-          } else if (response.status === 401 || response.status === 403 || msg?.includes('policy') || msg?.includes('permission') || msg?.includes('row-level security')) {
-            showAlert('info', 'Registrasi terkendala izin database (RLS). Jalankan SQL ini di Supabase SQL Editor:\n\nDROP POLICY IF EXISTS anon_insert ON profiles;\nCREATE POLICY anon_insert ON profiles FOR INSERT TO anon WITH CHECK (true);');
-          } else {
-            showAlert('error', 'Error (' + response.status + '): ' + (typeof msg === 'string' ? msg : JSON.stringify(body)));
-          }
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideErrorMessage();
 
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Daftar Sekarang';
+        // Retrieve form values
+        const namaLengkap = document.getElementById("fullName").value.trim();
+        const sapaan = document.getElementById("sapaan").value;
+        const panggilan = document.getElementById("panggilan").value.trim();
+        const nomorHPRaw = document.getElementById("nomorHP").value.trim();
+        const dobD = document.getElementById("dobDay").value;
+        const dobM = document.getElementById("dobMonth").value;
+        const dobY = document.getElementById("dobYear").value;
+        const jenisKelamin = document.getElementById("jenisKelamin").value;
+        const alamat = document.getElementById("alamat").value.trim();
+        const email = "";
+        const password = "123456";
+
+        // Simple Validation
+        if (
+          !namaLengkap ||
+          !sapaan ||
+          !panggilan ||
+          !nomorHPRaw ||
+          !dobD ||
+          !dobM ||
+          !dobY ||
+          !jenisKelamin ||
+          !alamat
+        ) {
+          showErrorMessage("Semua kolom bertanda bintang (*) wajib diisi.");
           return;
         }
 
-        showSuccess(name, phoneRaw, password);
-
-      } catch (err) {
-        console.error('Error:', err);
-
-        if (err.name === 'AbortError') {
-          showAlert('error', 'Koneksi timeout (15 detik). Supabase REST API tidak bisa dijangkau — mungkin firewall/ISP memblokir. Coba pakai WiFi lain atau VPN.\n\nAtau hubungi Aisyah lewat WhatsApp untuk daftar manual.');
-        } else {
-          showAlert('error', 'Terjadi kesalahan: ' + err.message);
+        if (password.length < 4) {
+          showErrorMessage("Password minimal harus 4 karakter.");
+          return;
         }
 
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Daftar Sekarang';
-      }
-    });
+        const cleanedPhone = cleanPhoneNumber(nomorHPRaw);
+        const birthDateString = `${dobY}-${dobM}-${dobD}`;
 
-    function showSuccess(name, phoneRaw, password) {
-      submitted = true;
-      document.getElementById('resultName').textContent = name;
-      document.getElementById('resultPhone').textContent = '62/0 ' + phoneRaw;
-      document.getElementById('resultPass').textContent = password;
-      formContent.classList.add('hidden');
-      successContent.classList.remove('hidden');
-    }
+        // Calculate Age
+        const bday = new Date(birthDateString);
+        const today = new Date();
+        let age = today.getFullYear() - bday.getFullYear();
+        const mDiff = today.getMonth() - bday.getMonth();
+        if (mDiff < 0 || (mDiff === 0 && today.getDate() < bday.getDate())) {
+          age--;
+        }
 
-    document.getElementById('phoneNumber').addEventListener('input', function () {
-      this.value = this.value.replace(/[^0-9]/g, '');
-    });
-  </script>
-</body>
+        // Show spinner overlay
+        loadingOverlay.classList.add("visible");
+        loadingText.textContent = "Menyinkronkan data ke Google Sheets...";
 
+        // 1. GOOGLE SPREADSHEET SYNC via Apps Script Web App
+        const sheetPayload = {
+          tanggalDaftar: new Date().toLocaleDateString("id-ID"),
+          namaLengkap: namaLengkap,
+          sapaan: sapaan,
+          panggilan: panggilan,
+          nomorHP: cleanedPhone,
+          tanggalLahir: birthDateString,
+          jenisKelamin: jenisKelamin,
+          alamat: alamat,
+          email: email,
+        };
+
+        if (
+          !GOOGLE_SCRIPT_WEB_APP_URL ||
+          GOOGLE_SCRIPT_WEB_APP_URL === "TEMPEL_URL_WEB_APP_DISINI"
+        ) {
+          showErrorMessage(
+            "Konfigurasi Google Sheets URL belum diisi di kode HTML. Silakan hubungi admin.",
+          );
+          loadingOverlay.classList.remove("visible");
+          return;
+        }
+
+        try {
+          await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors", // Penting untuk bypass CORS dari Apps Script
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(sheetPayload),
+          });
+
+          console.log("✓ Data sent to Google Sheets.");
+
+          loadingText.textContent = "Mengirimkan pesan konfirmasi WhatsApp...";
+
+          // 2. WHATSAPP GATEWAY NOTIFICATION via HRIS02
+          const waMessageText = `Selamat! Pendaftaran member AQSHAMART Anda telah berhasil. 🎉\n\nTerima kasih *${sapaan}* *${panggilan}* telah mendaftar menjadi member AQSHAMART Member.\n\nSetelah menerima pesan ini, Anda langsung dapat menikmati berbagai BENEFIT member di AQSHAMART.COM, antara lain:\n- Prioritas mendapatkan informasi promo terbaru\n- Penawaran spesial dengan harga khusus (Retail & Grosir)\n- Layanan pesan antar cepat & FREE ongkir\n\nSemoga *${sapaan}* *${panggilan}* & keluarga selalu diberikan kesehatan dan kelancaran rezeki. Amin.\n\nSalam Hangat,\nAQSHAMART - Yang SMART Selalu Belanja di AQSHAMART`;
+
+          const waPayload = {
+            sessionId: WA_SESSION_ID,
+            to: cleanedPhone,
+            phone: cleanedPhone,
+            number: cleanedPhone,
+            receiver: cleanedPhone,
+            message: waMessageText,
+          };
+
+          try {
+            await fetch(WA_GATEWAY_URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-api-key": WA_API_KEY,
+                "session-id": WA_SESSION_ID,
+                "ngrok-skip-browser-warning": "true",
+              },
+              body: JSON.stringify(waPayload),
+            });
+          } catch (waErr) {
+            console.warn("WhatsApp gateway failure:", waErr);
+          }
+
+          // Force a spin reload delay of exactly 3 seconds as requested by the user
+          loadingText.textContent = "Menyelesaikan pendaftaran...";
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+
+          // Hide overlay, clear form, and show success popup
+          loadingOverlay.classList.remove("visible");
+          form.reset();
+          successPopup.classList.add("visible");
+        } catch (err) {
+          console.error(err);
+          loadingOverlay.classList.remove("visible");
+          showErrorMessage(
+            err.message ||
+              "Pendaftaran gagal karena terjadi kesalahan jaringan.",
+          );
+        }
+      });
+
+      // Close success popup and redirect
+      document
+        .getElementById("closeSuccessBtn")
+        .addEventListener("click", () => {
+          successPopup.classList.remove("visible");
+          window.location.href = "https://www.AQSHAMART.com";
+        });
+    </script>
+  </body>
 </html>
