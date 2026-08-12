@@ -774,7 +774,7 @@
 
         if (
           !GOOGLE_SCRIPT_WEB_APP_URL ||
-          GOOGLE_SCRIPT_WEB_APP_URL === "TEMPEL_URL_WEB_APP_DISINI"
+          GOOGLE_SCRIPT_WEB_APP_URL === "https://script.google.com/macros/library/d/1oUX4lRSCnf2gUpGqLMKZ3qP0Q19Loj86__5ujIMxq4Hh2VNn5kIksPeu/1"
         ) {
           showErrorMessage(
             "Konfigurasi Google Sheets URL belum diisi di kode HTML. Silakan hubungi admin.",
@@ -783,7 +783,68 @@
           return;
         }
 
+        // 1. SUPABASE PROFILES REGISTRATION
+        const uuid = generateUUID();
+        const now = new Date().toISOString();
+        const profileData = {
+          id: uuid,
+          phone_number: cleanedPhone,
+          full_name: `${sapaan} ${namaLengkap}`,
+          password_plain: password,
+          role: "customer",
+          created_at: now,
+          sapaan: sapaan,
+          panggilan: panggilan,
+          tanggal_lahir: birthDateString,
+          jenis_kelamin: jenisKelamin,
+          alamat: alamat
+        };
+
         try {
+          loadingText.textContent = "Mendaftarkan member di database...";
+
+          // Simpan ke tabel profiles Supabase
+          const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/profiles`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_ANON_KEY,
+              "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+              "Prefer": "return=representation"
+            },
+            body: JSON.stringify(profileData)
+          });
+
+          if (!supaRes.ok) {
+            const errData = await supaRes.json().catch(() => ({}));
+            const errMsg = errData.message || supaRes.statusText;
+            const errCode = errData.code || "";
+            
+            if (errCode === "23505" || errMsg.includes("duplicate") || errMsg.includes("already exists")) {
+              throw new Error(`Nomor HP ${cleanedPhone} sudah terdaftar di AQSHAMART. Silakan gunakan nomor lain.`);
+            } else {
+              throw new Error(`Gagal menyimpan ke database Supabase: ${errMsg}`);
+            }
+          }
+
+          // Tambah default saldo & poin ke user_balances Supabase
+          await fetch(`${SUPABASE_URL}/rest/v1/user_balances`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_ANON_KEY,
+              "Authorization": "Bearer " + SUPABASE_ANON_KEY
+            },
+            body: JSON.stringify({
+              user_id: uuid,
+              saldo: 0,
+              poin: 0
+            })
+          }).catch(e => console.warn("Failed to create balance row:", e));
+
+          loadingText.textContent = "Menyinkronkan data ke Google Sheets...";
+
+          // 2. GOOGLE SPREADSHEET SYNC via Apps Script Web App
           await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
             method: "POST",
             mode: "no-cors", // Penting untuk bypass CORS dari Apps Script
@@ -792,12 +853,12 @@
             },
             body: JSON.stringify(sheetPayload),
           });
-
+          
           console.log("✓ Data sent to Google Sheets.");
 
           loadingText.textContent = "Mengirimkan pesan konfirmasi WhatsApp...";
 
-          // 2. WHATSAPP GATEWAY NOTIFICATION via HRIS02
+          // 3. WHATSAPP GATEWAY NOTIFICATION via HRIS02
           const waMessageText = `Selamat! Pendaftaran member AQSHAMART Anda telah berhasil. 🎉\n\nTerima kasih *${sapaan}* *${panggilan}* telah mendaftar menjadi member AQSHAMART Member.\n\nSetelah menerima pesan ini, Anda langsung dapat menikmati berbagai BENEFIT member di AQSHAMART.COM, antara lain:\n- Prioritas mendapatkan informasi promo terbaru\n- Penawaran spesial dengan harga khusus (Retail & Grosir)\n- Layanan pesan antar cepat & FREE ongkir\n\nSemoga *${sapaan}* *${panggilan}* & keluarga selalu diberikan kesehatan dan kelancaran rezeki. Amin.\n\nSalam Hangat,\nAQSHAMART - Yang SMART Selalu Belanja di AQSHAMART`;
 
           const waPayload = {
