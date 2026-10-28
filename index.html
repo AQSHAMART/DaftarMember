@@ -453,7 +453,7 @@
       <!-- Brand Logo -->
       <div class="brand-logo-container">
         <img
-          src="LOGO AQMA POLOS.png"
+          src="/LOGO AQMA POLOS.png"
           alt="AQSHAMART Logo"
           class="brand-logo"
         />
@@ -645,9 +645,9 @@
     <!-- Main Controller Logic JS -->
     <script>
       // === CONFIGURATION ===
-      const SUPABASE_URL = "https://ntprcxobprjputcrqevi.supabase.co";
+      const SUPABASE_URL = "https://efhtrnxkydlbrcjumilw.supabase.co";
       const SUPABASE_ANON_KEY =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im50cHJjeG9icHJqcHV0Y3JxZXZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2MjI0NjQsImV4cCI6MjA5NTE5ODQ2NH0.vURhMiUiEWv1UG7otvk6qjhmhtkVyAVzfFTDlHBo3C4";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVmaHRybnhreWRsYnJjanVtaWx3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5NTcyMTAsImV4cCI6MjEwODUzMzIxMH0.5nYxOiLTlqQx9wLzbnCQzgszwFsMAYXtpcOfJyeiETQ";
       const WA_GATEWAY_URL =
         "https://nonleaking-cameron-eagerly.ngrok-free.dev/api/send";
       const WA_API_KEY = "AQSHAMART2025";
@@ -799,20 +799,43 @@
         const now = new Date().toISOString();
         const profileData = {
           id: uuid,
-          phone_number: cleanedPhone,
           full_name: `${sapaan} ${namaLengkap}`,
-          password_plain: password,
-          role: "customer",
-          created_at: now,
           sapaan: sapaan,
           panggilan: panggilan,
+          phone_number: cleanedPhone,
+          password_plain: password,
+          alamat: alamat,
           tanggal_lahir: birthDateString,
+          umur: age ? parseInt(age, 10) : null,
+          agama: null,
           jenis_kelamin: jenisKelamin,
-          alamat: alamat
+          status: "Member",
+          role: "customer",
+          created_at: now
         };
 
         try {
           loadingText.textContent = "Mendaftarkan member di database...";
+
+          // Cek apakah nomor HP sudah terdaftar sebelumnya di Supabase
+          try {
+            const checkRes = await fetch(`${SUPABASE_URL}/rest/v1/profiles?phone_number=eq.${cleanedPhone}&select=id`, {
+              headers: {
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": "Bearer " + SUPABASE_ANON_KEY
+              }
+            });
+            if (checkRes.ok) {
+              const existing = await checkRes.json().catch(() => []);
+              if (Array.isArray(existing) && existing.length > 0) {
+                throw new Error(`Nomor HP ${cleanedPhone} sudah terdaftar sebagai member AQSHAMART. Silakan langsung login.`);
+              }
+            }
+          } catch (chkErr) {
+            if (chkErr.message && chkErr.message.includes("sudah terdaftar")) {
+              throw chkErr;
+            }
+          }
 
           // Simpan ke tabel profiles Supabase
           const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/profiles`, {
@@ -919,7 +942,7 @@
         .getElementById("closeSuccessBtn")
         .addEventListener("click", () => {
           successPopup.classList.remove("visible");
-          window.location.href = "https://www.AQSHAMART.com";
+          window.location.href = window.location.origin || "https://www.AQSHAMART.com";
         });
     </script>
   </body>
